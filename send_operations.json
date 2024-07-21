@@ -1,0 +1,172 @@
+{
+	"transactions": [
+		{
+			"name": "Revolut ~ Nationwide[FlexOne]",
+			"source": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"destination": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"confirmation": false,
+			"amount": "$source.amount",
+			"repeat": {
+				"frequency": "interval",
+				"value": 30,
+				"unit": "minutes"
+			},
+			"condition": "$source.amount > 0"
+		},
+		{
+			"name": "PayPal ~ Nationwide[FlexOne]",
+			"source": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"destination": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"confirmation": false,
+			"amount": "$source.amount",
+			"repeat": {
+				"frequency": "interval",
+				"value": 30,
+				"unit": "minutes"
+			},
+			"condition": "$source.amount > 0"
+		},
+		{
+			"name": "Nationwide[FlexOne] ~ Nationwide[Help To Buy ISA]",
+			"source": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"destination": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx",
+				"ISA": true
+			},
+			"confirmation": true,
+			"amount": "200",
+			"repeat": {
+				"frequency": "monthly",
+				"date": 7
+			},
+			"condition": "$source.value > 200",
+			"ISA_increment": 200
+		},
+		{
+			"name": "Nationwide[FlexOne] ~ Nationwide[Regular Saver]",
+			"source": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"destination": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"confirmation": true,
+			"amount": "200",
+			"repeat": {
+				"frequency": "monthly",
+				"date": 7
+			},
+			"condition": "$source.value > 200"
+		},
+		{
+			"name": "Monzo[Personal Account] ~ Nationwide[FlexOne]",
+			"source": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"destination": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"confirmation": false,
+			"amount": 400,
+			"repeat": {
+				"frequency": "monthly",
+				"date": 1
+			},
+			"condition": "$source.value > 400"
+		},
+		{
+			"name": "Nationwide[FlexOne] ~ Monzo[Personal Account]",
+			"source": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"destination": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"confirmation": false,
+			"amount": "$source.value",
+			"repeat": {
+				"frequency": "interval",
+				"value": 30,
+				"unit": "minutes"
+			},
+			"condition": "$source.value > 0 && $source.transaction == 'COMPLETED'"
+		},
+		{
+			"name": "Natwest[Student Account] ~ Nationwide[FlexOne]",
+			"source": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"destination": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"confirmation": false,
+			"amount": "$source.value",
+			"repeat": {
+				"frequency": "interval",
+				"value": 30,
+				"unit": "minutes"
+			},
+			"condition": "$source.value > 0"
+		},
+		{
+			"source": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"destination": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"confirmation": false,
+			"amount": "$source.value",
+			"repeat": {
+				"frequency": "interval",
+				"value": 30,
+				"unit": "minutes"
+			},
+			"condition": "$source.value > 0"
+		},
+		{
+			"source": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"destination": {
+				"sort_code": "xx-xx-xx",
+				"account_number": "xxxxxxxxxxxxxx"
+			},
+			"confirmation": false,
+			"amount": "$source.value",
+			"repeat": {
+				"frequency": "interval",
+				"value": 30,
+				"unit": "minutes"
+			},
+			"condition": "$source.value > 0"
+		}
+	]
+}
