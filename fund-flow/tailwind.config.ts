@@ -85,7 +85,7 @@ const config = {
 			},
 			fontFamily: {
 				inter: "var(--font-inter)",
-				"ibm-plex-serif": "var(--font-ibm-plex-serif)",
+				outfit: "var(--font-outfit)",
 			},
 			keyframes: {
 				"accordion-down": {

@@ -44,7 +44,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
 							height={34}
 							alt="FundFlow logo"
 						></Image>
-						<h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">
+						<h1 className="text-26 font-outfit font-bold text-black-1">
 							FundFlow
 						</h1>
 					</Link>
