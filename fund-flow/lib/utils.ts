@@ -2,6 +2,7 @@
 import { type ClassValue, clsx } from "clsx";
 import qs from "query-string";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -193,3 +194,61 @@ export const getTransactionStatus = (date: Date) => {
 
 	return date > twoDaysAgo ? "Processing" : "Success";
 };
+
+export const authFormSchema = (type: string) =>
+	z.object({
+		// sign up
+		firstName:
+			type === "sign-in"
+				? z.string().optional()
+				: z.string().min(3, {
+						message: "First name must be at least 3 characters long",
+				  }),
+		lastName:
+			type === "sign-in"
+				? z.string().optional()
+				: z.string().min(3, {
+						message: "Last name must be at least 3 characters long",
+				  }),
+		address:
+			type === "sign-in"
+				? z.string().optional()
+				: z
+						.string()
+						.max(50, { message: "Address must be at most 50 characters long" }),
+		postalCode:
+			type === "sign-in"
+				? z.string().optional()
+				: z.string().regex(/^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i, {
+						message: "Invalid UK postcode format",
+				  }),
+		city:
+			type === "sign-in"
+				? z.string().optional()
+				: z
+						.string()
+						.max(50, {
+							message: "City name must be at most 50 characters long",
+						}),
+		dateOfBirth:
+			type === "sign-in"
+				? z.string().optional()
+				: z.string().regex(/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/, {
+						message: "Invalid date format, must be dd-mm-yyyy",
+				  }),
+		nin:
+			type === "sign-in"
+				? z.string().optional()
+				: z.string().regex(/^[A-CEGHJ-PR-TW-Z][A-CEGHJ-PR-TW-Z]\d{6}[A-D]?$/i, {
+						message: "Invalid UK National Insurance number format",
+				  }),
+		// both
+		email: z.string().email({ message: "Must be a valid email address" }),
+		password: z
+			.string()
+			.min(8, { message: "Password must be at least 8 characters long" })
+			.regex(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/, {
+				message:
+					"Password must contain at least one uppercase letter, one number, and one symbol",
+			}),
+	});

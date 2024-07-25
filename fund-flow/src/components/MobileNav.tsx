@@ -9,7 +9,7 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/components/sheet";
 import Image from "next/image";
 import Link from "next/link";
 import { sidebarLinks } from "../../constants";
