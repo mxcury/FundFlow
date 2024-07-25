@@ -41,20 +41,36 @@ const AuthForm = ({ type }: { type: string }) => {
 
 	// 2. Define a submit handler.
 	const onSubmit = async (data: z.infer<typeof formSchema>) => {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
+		setIsLoading(true);
 
 		try {
-			// Sign up with AppWrite & creat plaid token
+			// Sign up with Appwrite & create plaid token
+
 			if (type === "sign-up") {
-				const newUser = await signUp(data);
+				const userData = {
+					firstName: data.firstName!,
+					lastName: data.lastName!,
+					address: data.address!,
+					city: data.city!,
+					postalCode: data.postalCode!,
+					dateOfBirth: data.dateOfBirth!,
+					nin: data.nin!,
+					email: data.email,
+					password: data.password,
+				};
+
+				const newUser = await signUp(userData);
+
 				setUser(newUser);
-			} else if (type === "sign-in") {
-				const resp = await signIn({
+			}
+
+			if (type === "sign-in") {
+				const response = await signIn({
 					email: data.email,
 					password: data.password,
 				});
-				if (resp) router.push("/");
+
+				if (response) router.push("/");
 			}
 		} catch (error) {
 			console.log(error);
@@ -100,7 +116,7 @@ const AuthForm = ({ type }: { type: string }) => {
 							onSubmit={form.handleSubmit(onSubmit)}
 							className="space-y-8"
 						>
-							{type == "sign-up" && (
+							{type === "sign-up" && (
 								<>
 									<div className="flex gap-4">
 										<CustomFormField
@@ -116,18 +132,22 @@ const AuthForm = ({ type }: { type: string }) => {
 											placeholder="Doe"
 										/>
 									</div>
-									<CustomFormField
-										control={form.control}
-										name="email"
-										label="Email"
-										placeholder="Please enter your email"
-									/>
-									<CustomFormField
-										control={form.control}
-										name="password"
-										label="Password"
-										placeholder="Please enter your password"
-									/>
+								</>
+							)}
+							<CustomFormField
+								control={form.control}
+								name="email"
+								label="Email"
+								placeholder="Please enter your email"
+							/>
+							<CustomFormField
+								control={form.control}
+								name="password"
+								label="Password"
+								placeholder="Please enter your password"
+							/>
+							{type === "sign-up" && (
+								<>
 									<div className="flex gap-4">
 										<CustomFormField
 											control={form.control}
