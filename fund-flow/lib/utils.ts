@@ -66,10 +66,10 @@ export const formatDateTime = (dateString: Date) => {
 	};
 };
 
-export function formatAmount(amount: number): string {
-	const formatter = new Intl.NumberFormat("en-US", {
+export function formatAmount(amount: number, currency: string = "GBP"): string {
+	const formatter = new Intl.NumberFormat("en-GB", {
 		style: "currency",
-		currency: "USD",
+		currency: currency,
 		minimumFractionDigits: 2,
 	});
 
@@ -225,11 +225,9 @@ export const authFormSchema = (type: string) =>
 		city:
 			type === "sign-in"
 				? z.string().optional()
-				: z
-						.string()
-						.max(50, {
-							message: "City name must be at most 50 characters long",
-						}),
+				: z.string().max(50, {
+						message: "City name must be at most 50 characters long",
+				  }),
 		dateOfBirth:
 			type === "sign-in"
 				? z.string().optional()
